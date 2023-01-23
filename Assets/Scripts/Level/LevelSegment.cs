@@ -27,6 +27,12 @@ public class LevelSegment : MonoBehaviour
         levelManager = manager;
     }
 
+    public void InitializeSegment(LevelManager manager, LevelSegmentData spawnSegmentData)
+    {
+        levelManager = manager;
+        levelSegmentData = spawnSegmentData;
+    }
+
     void SetUpLevelSegment()
     {
         if (isProcedural) 
@@ -54,4 +60,5 @@ public class LevelSegment : MonoBehaviour
         Gizmos.color = segmentGizmosColor;
         Gizmos.DrawWireCube(transform.position, new Vector3(levelSegmentData.levelSegmentXExtend, levelSegmentData.levelSegmentYExtend, 1));
     }
+
 }

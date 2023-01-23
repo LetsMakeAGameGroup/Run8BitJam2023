@@ -10,9 +10,11 @@ public class LevelManager : MonoBehaviour
     //We need to track the player and camera position to do the segment switching
     public Transform player;
     public Transform playerCamera;
-
-
     public int segmentSwapIndex;
+
+    public LevelSegmentData SegmentSpawnData;
+    public int segmentToSpawnCount;
+    public int segmentSwitchXPosition;
 
     private void Awake()
     {
@@ -29,65 +31,62 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < segmentToSpawnCount; i++) 
         {
-            LevelSegment segment = transform.GetChild(i).GetComponent<LevelSegment>();
+            GameObject newSegmentObject = new GameObject("LevelSegment " + i);
+            newSegmentObject.transform.SetParent(transform);
+            newSegmentObject.transform.position = new Vector3(18 * i, 0, 0);
 
-            if (segment)
-            {
-                segment.InitializeSegment(this);
-                segments.Add(segment);
-            }
+            LevelSegment segment = newSegmentObject.AddComponent<LevelSegment>();
+
+            segment.InitializeSegment(this, SegmentSpawnData);
+            segments.Add(segment);
         }
+
+
+
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    LevelSegment segment = transform.GetChild(i).GetComponent<LevelSegment>();
+        //
+        //    if (segment)
+        //    {
+        //        segment.InitializeSegment(this);
+        //        segments.Add(segment);
+        //    }
+        //}
     }
 
     private void Update()
     {
-        if (player.position.x >= 45)
+        if (player.position.x >= segmentSwitchXPosition)
         {
-            Vector2 PlayerLocalPositionInSegment = Vector2.zero;
-            Vector3 CameraLocalPositionInSegment = Vector3.zero;
+            Vector2 PlayerLocalPositionInSegment = segments[4].transform.InverseTransformPoint(player.position);
+            Vector3 CameraLocalPositionInSegment = segments[4].transform.InverseTransformPoint(playerCamera.position);
 
-            if (segmentSwapIndex == 0)
-            {
-                //Get the player and camera position based on a segment
-                PlayerLocalPositionInSegment = segments[2].transform.InverseTransformPoint(player.position);
-                CameraLocalPositionInSegment = segments[2].transform.InverseTransformPoint(playerCamera.position);
+            //Grabs last two segments and swift them to the front
+            segments[4].SetLevelSegmentLocation(new Vector3(0, 0, 0));
+            segments[5].SetLevelSegmentLocation(new Vector3(18, 0, 0));
 
-                segments[2].SetLevelSegmentLocation(new Vector3(0, 0, 0));
-                segments[3].SetLevelSegmentLocation(new Vector3(18, 0, 0));
+            //moves the rest forward
+            segments[0].SetLevelSegmentLocation(new Vector3(36, 0, 0));
+            segments[0].ResetLevelSegment();
+            segments[1].SetLevelSegmentLocation(new Vector3(54, 0, 0));
+            segments[1].ResetLevelSegment();
+            segments[2].SetLevelSegmentLocation(new Vector3(72, 0, 0));
+            segments[2].ResetLevelSegment();
+            segments[3].SetLevelSegmentLocation(new Vector3(90, 0, 0));
+            segments[3].ResetLevelSegment();
 
-                //move these up front and reset
-                segments[0].SetLevelSegmentLocation(new Vector3(36, 0, 0));
-                segments[0].ResetLevelSegment();
-                segments[1].SetLevelSegmentLocation(new Vector3(54, 0, 0));
-                segments[1].ResetLevelSegment();
-
-                segmentSwapIndex = 1;
-            }
-            else if (segmentSwapIndex == 1)
-            {
-                //Get the player and camera position based on a segment
-                PlayerLocalPositionInSegment = segments[0].transform.InverseTransformPoint(player.position);
-                CameraLocalPositionInSegment = segments[0].transform.InverseTransformPoint(playerCamera.position);
-
-                segments[0].SetLevelSegmentLocation(new Vector3(0, 0, 0));
-                segments[1].SetLevelSegmentLocation(new Vector3(18, 0, 0));
-
-                //move these up front and reset
-                segments[2].SetLevelSegmentLocation(new Vector3(36, 0, 0));
-                segments[2].ResetLevelSegment();
-                segments[3].SetLevelSegmentLocation(new Vector3(54, 0, 0));
-                segments[3].ResetLevelSegment();
-
-                segmentSwapIndex = 0;
-            }
+            //Reorders the list based on their X position
+            segments.Sort((a, b) => a.transform.position.x.CompareTo(b.transform.position.x));
 
             //Move player and camera to the calculated position
             player.position = PlayerLocalPositionInSegment;
 
             CameraLocalPositionInSegment.z = -10;
             playerCamera.position = CameraLocalPositionInSegment;
+
         }
     }
 
