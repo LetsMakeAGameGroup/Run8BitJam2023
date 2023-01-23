@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
         {
             GameObject newSegmentObject = new GameObject("LevelSegment " + i);
             newSegmentObject.transform.SetParent(transform);
-            newSegmentObject.transform.position = new Vector3(18 * i, 0, 0);
+            newSegmentObject.transform.position = new Vector3(SegmentSpawnData.levelSegmentXExtend * i, 0, 0);
 
             LevelSegment segment = newSegmentObject.AddComponent<LevelSegment>();
 
