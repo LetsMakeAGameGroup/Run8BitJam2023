@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update() {
+    private void Update(){
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
         float currentSpeed = isRunning ? runningSpeed : walkingSpeed;
 
@@ -25,7 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
         isGrounded = Physics2D.Raycast(transform.position, -Vector2.up, 0.6f, groundLayer);
 
-        if (Input.GetButtonDown("Jump") && isGrounded) {
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }

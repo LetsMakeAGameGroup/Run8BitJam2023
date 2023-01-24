@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public enum GameState 
 {
+    Initialize,
     Starting,
     InProcess,
     End
@@ -18,6 +21,22 @@ public class GameMode : MonoBehaviour
     public static GameMode Instance { get; private set; }
     public GameState gameState;
 
+    [SerializeField] float startGameTimer = 3;
+    float gameTime;
+    float milesCounter;
+    string gameEndTime;
+
+    //UI Stuff
+    [SerializeField] TMP_Text timeText;
+    [SerializeField] TMP_Text milesText;
+
+    //Delegates
+    public delegate void OnGameStart();
+    public OnGameStart onGameStart;
+
+    //Player Reference
+    [SerializeField] private PlayerController playerController;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -28,12 +47,89 @@ public class GameMode : MonoBehaviour
         {
             Instance = this;
         }
+
+        //If player controller aint initially assigned, we find it
+        if (playerController == null) 
+        {
+            playerController = FindObjectOfType<PlayerController>();
+
+            //If we still CANT find the player, we create one
+            if (playerController == null) 
+            {
+                //Create player here
+            }
+        }
     }
 
-    void StartGame() { }
+    private void Start()
+    {
+        StartCoroutine(StartGameCountdown(startGameTimer));
+    }
 
-    void InProcessUpdate() { }
+    IEnumerator StartGameCountdown(float Seconds) 
+    {
+        yield return new WaitForSeconds(Seconds);
 
-    void EndGame() { }
+        StartGame();
+
+        yield return null;
+    }
+
+    void StartGame() 
+    {
+        Debug.Log("START!");
+
+        if (onGameStart != null) 
+        {
+            onGameStart();
+        }
+
+        gameState = GameState.InProcess;
+    }
+
+    void Update() 
+    {
+        if (gameState == GameState.InProcess)
+        {
+            //I believe .ToString() generates garbage, there might be a more beneficial way.
+            gameTime += Time.deltaTime;
+            SetTimeText(GetTimeString(gameTime));
+
+            milesCounter += Time.deltaTime;
+            SetMilesText(Mathf.RoundToInt(milesCounter).ToString());
+        }
+    }
+
+    void EndGame() 
+    {
+
+    }
+
+    string GetTimeString(float time) 
+    {
+        time = Mathf.Max(0, time - Time.deltaTime);
+        var timeSpan = System.TimeSpan.FromSeconds(time);
+        return timeSpan.Hours.ToString("00") + ":" + timeSpan.Minutes.ToString("00") + ":" + timeSpan.Seconds.ToString("00") + "." + timeSpan.Milliseconds / 100;
+    }
+
+    public void SetTimeText(string newText)
+    {
+        if (timeText == null)
+        {
+            return;
+        }
+
+        timeText.text = newText;
+    }
+
+    public void SetMilesText(string newText)
+    {
+        if (milesText == null) 
+        {
+            return;
+        }
+
+        milesText.text = newText;
+    }
 
 }
