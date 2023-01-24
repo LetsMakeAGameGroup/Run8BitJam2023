@@ -35,7 +35,7 @@ public class GameMode : MonoBehaviour
     public OnGameStart onGameStart;
 
     //Player Reference
-    [SerializeField] private PlayerController playerController;
+    [SerializeField] private PlayerMovement playerMovement;
 
     private void Awake()
     {
@@ -49,12 +49,12 @@ public class GameMode : MonoBehaviour
         }
 
         //If player controller aint initially assigned, we find it
-        if (playerController == null) 
+        if (playerMovement == null) 
         {
-            playerController = FindObjectOfType<PlayerController>();
+            playerMovement = FindObjectOfType<PlayerMovement>();
 
             //If we still CANT find the player, we create one
-            if (playerController == null) 
+            if (playerMovement == null) 
             {
                 //Create player here
             }
@@ -84,6 +84,7 @@ public class GameMode : MonoBehaviour
             onGameStart();
         }
 
+        playerMovement.canMove = true;
         gameState = GameState.InProcess;
     }
 

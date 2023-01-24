@@ -16,6 +16,12 @@ public class LevelManager : MonoBehaviour
     public int segmentToSpawnCount;
     public int segmentSwitchXPosition;
 
+    public DangerZone dangerZone;
+
+    public float DangerZoneCurrentDistance;
+    public float DangerZoneMinDistance;
+    public float DangerZoneMaxDistance;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -42,23 +48,13 @@ public class LevelManager : MonoBehaviour
             segment.InitializeSegment(this, SegmentSpawnData);
             segments.Add(segment);
         }
-
-
-
-        //for (int i = 0; i < transform.childCount; i++)
-        //{
-        //    LevelSegment segment = transform.GetChild(i).GetComponent<LevelSegment>();
-        //
-        //    if (segment)
-        //    {
-        //        segment.InitializeSegment(this);
-        //        segments.Add(segment);
-        //    }
-        //}
     }
 
     private void Update()
     {
+        Vector2 dangerZonePosition = new Vector2(player.position.x + DangerZoneCurrentDistance, 0);
+        dangerZone.SetDeadZonePosition(dangerZonePosition);
+
         if (player.position.x >= segmentSwitchXPosition)
         {
             Vector2 PlayerLocalPositionInSegment = segments[4].transform.InverseTransformPoint(player.position);
