@@ -100,9 +100,11 @@ public class GameMode : MonoBehaviour
         }
     }
 
-    void EndGame() 
+    public void EndGame() 
     {
+        gameState = GameState.End;
 
+        //Bring up Losing Screen
     }
 
     string GetTimeString(float time) 
