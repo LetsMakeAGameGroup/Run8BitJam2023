@@ -35,6 +35,8 @@ public class PlayerMovement : MonoBehaviour {
         // Sets the player's speed to running or walking speed depending if the player is holding down the Sprint button or not.
         //bool isRunning = Input.GetButton("Sprint");
         //float currentSpeed = isRunning ? runningSpeed : walkingSpeed;
+        if (playerController.fireTicks > 0) currentSpeed = runningSpeed;
+        else currentSpeed = walkingSpeed;
 
         // Constantly move towards the right.
         rb.velocity = new Vector2(currentSpeed, rb.velocity.y);

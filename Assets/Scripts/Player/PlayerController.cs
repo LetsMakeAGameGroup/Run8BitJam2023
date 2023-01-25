@@ -1,26 +1,35 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
     [HideInInspector] public int batteries = 1;
     private int maxBatteries = 3;
 
     [HideInInspector] public int currentTemp = 50;
-    [SerializeField] private int fireIncrease = 15;
-
+    [HideInInspector] public int fireTicks = 0;
     private float tempTimer = 1f;
+    [SerializeField] private Color defaultColor;
+    [SerializeField] private Color fireColor;
 
     private void Start() {
         maxBatteries = HUDManager.Instance.batteries.Length;
     }
 
     private void Update() {
-        if (currentTemp <= 0) return;
-
-        // Decrease the currentTemp by 1 every second.
+        // Naturally, decrease the currentTemp by 1 every second. If the player is on fire, increase currentTemp by 1 every second.
         if (tempTimer > 0) {
             tempTimer -= Time.deltaTime;
         } else {
-            currentTemp--;
+            if (fireTicks > 0) {
+                fireTicks--;
+                if (fireTicks == 0) GetComponent<SpriteRenderer>().color = defaultColor;
+
+                if (currentTemp >= 100) return;
+                currentTemp++;
+            } else {
+                if (currentTemp <= 0) return;
+                currentTemp--;
+            }
             HUDManager.Instance.UpdateTemperature(currentTemp);
             tempTimer = 1f;
         }
@@ -36,8 +45,8 @@ public class PlayerController : MonoBehaviour {
 
         // When colliding with Fire, increase the player's temperature by fireIncrease.
         if (collision.CompareTag("Fire")) {
-            if (currentTemp + fireIncrease > 100) currentTemp = 100;
-            else currentTemp += fireIncrease;
+            GetComponent<SpriteRenderer>().color = fireColor;
+            fireTicks = 10;
             HUDManager.Instance.UpdateTemperature(currentTemp);
             Destroy(collision.gameObject);
         }
