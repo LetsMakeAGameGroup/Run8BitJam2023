@@ -34,7 +34,11 @@ public class GameMode : MonoBehaviour
     public delegate void OnGameStart();
     public OnGameStart onGameStart;
 
+    public delegate void OnGameEnd();
+    public OnGameEnd onGameEnd;
+
     //Player Reference
+    public PlayerController playerController;
     [SerializeField] private PlayerMovement playerMovement;
 
     private void Awake()
@@ -48,7 +52,18 @@ public class GameMode : MonoBehaviour
             Instance = this;
         }
 
-        //If player controller aint initially assigned, we find it
+        if (playerController == null)
+        {
+            playerController = FindObjectOfType<PlayerController>();
+
+            //If we still CANT find the player, we create one
+            if (playerController == null)
+            {
+                //Create player here
+            }
+        }
+
+        //If player movement aint initially assigned, we find it
         if (playerMovement == null) 
         {
             playerMovement = FindObjectOfType<PlayerMovement>();
@@ -133,6 +148,11 @@ public class GameMode : MonoBehaviour
         }
 
         milesText.text = newText;
+    }
+
+    public PlayerController GetPlayerController() 
+    {
+        return playerController;
     }
 
 }

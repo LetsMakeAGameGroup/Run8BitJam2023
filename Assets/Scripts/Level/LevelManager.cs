@@ -59,6 +59,7 @@ public class LevelManager : MonoBehaviour
         {
             Vector2 PlayerLocalPositionInSegment = segments[4].transform.InverseTransformPoint(player.position);
             Vector3 CameraLocalPositionInSegment = segments[4].transform.InverseTransformPoint(playerCamera.position);
+            Vector2 dagnerZoneNewPostion = segments[4].transform.InverseTransformPoint(dangerZone.transform.position);
 
             //Grabs last two segments and swift them to the front
             segments[4].SetLevelSegmentLocation(new Vector3(0, 0, 0));
@@ -79,6 +80,9 @@ public class LevelManager : MonoBehaviour
 
             //Move player and camera to the calculated position
             player.position = PlayerLocalPositionInSegment;
+
+            //Moves DangerZone to new position
+            dangerZone.SetDeadZonePosition(dagnerZoneNewPostion);
 
             CameraLocalPositionInSegment.z = -10;
             playerCamera.position = CameraLocalPositionInSegment;

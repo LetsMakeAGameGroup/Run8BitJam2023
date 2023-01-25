@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour {
 
     private float tempTimer = 1f;
 
-    private void Awake() {
+    private void Start() {
         maxBatteries = HUDManager.Instance.batteries.Length;
     }
 

@@ -1,8 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerController))]
 public class PlayerMovement : MonoBehaviour {
+    public float currentSpeed;
     [SerializeField] private float walkingSpeed = 10;
     [SerializeField] private float runningSpeed = 15;
     [SerializeField] private float jumpForce = 20;
@@ -21,12 +24,17 @@ public class PlayerMovement : MonoBehaviour {
         playerController = GetComponent<PlayerController>();
     }
 
+    private void Start()
+    {
+        currentSpeed = walkingSpeed;
+    }
+
     private void Update() {
         if (!canMove) return;
 
         // Sets the player's speed to running or walking speed depending if the player is holding down the Sprint button or not.
-        bool isRunning = Input.GetButton("Sprint");
-        float currentSpeed = isRunning ? runningSpeed : walkingSpeed;
+        //bool isRunning = Input.GetButton("Sprint");
+        //float currentSpeed = isRunning ? runningSpeed : walkingSpeed;
 
         // Constantly move towards the right.
         rb.velocity = new Vector2(currentSpeed, rb.velocity.y);
@@ -60,5 +68,21 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetButton("Jump")) {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
+    }
+
+    public void ReduceCurrentSpeedByTime(float newSpeed, float seconds)
+    {
+        StartCoroutine(ReduceCurrentSpeedByTimeC(newSpeed, seconds));
+    }
+
+    IEnumerator ReduceCurrentSpeedByTimeC(float newSpeed, float seconds) 
+    {
+        currentSpeed = newSpeed;
+
+        yield return new WaitForSeconds(seconds);
+
+        currentSpeed = walkingSpeed;
+
+        yield return null;
     }
 }

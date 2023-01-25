@@ -6,10 +6,45 @@ public class DangerZone : MonoBehaviour
 {
     public float DangerZoneSpeed;
     Coroutine DangerZoneCountdown;
+    bool isActive;
+    public float maxDistanceFromPlayer;
 
-    private void Update()
+    public Transform player;
+    private void Start()
     {
+        GameMode.Instance.onGameStart += StartDangerZone;
+        GameMode.Instance.onGameEnd += StopDangerZone;
 
+        player = GameMode.Instance.GetPlayerController().transform;
+    }
+
+    void StartDangerZone() 
+    {
+        isActive = true;
+    }
+
+    void StopDangerZone() 
+    {
+        isActive = false;
+    }
+
+    private void LateUpdate()
+    {
+        if (!isActive) 
+        {
+            return;
+        }
+
+        float playerDistance = Vector3.Distance(transform.position, player.position);
+
+        if (playerDistance > maxDistanceFromPlayer)
+        {
+            transform.Translate(Vector3.right * DangerZoneSpeed * 3 * Time.deltaTime);
+        }
+        else 
+        {
+            transform.Translate(Vector3.right * DangerZoneSpeed * Time.deltaTime);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -43,6 +78,8 @@ public class DangerZone : MonoBehaviour
         }
 
         //We stayed more than the seconds allowed
+        //We die
+        player.gameObject.SetActive(false);
         GameMode.Instance.EndGame();
 
         yield return null;
