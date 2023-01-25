@@ -52,8 +52,8 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        Vector2 dangerZonePosition = new Vector2(player.position.x + DangerZoneCurrentDistance, 0);
-        dangerZone.SetDeadZonePosition(dangerZonePosition);
+        //Vector2 dangerZonePosition = new Vector2(player.position.x + DangerZoneCurrentDistance, 0);
+        //dangerZone.SetDeadZonePosition(dangerZonePosition);
 
         if (player.position.x >= segmentSwitchXPosition)
         {

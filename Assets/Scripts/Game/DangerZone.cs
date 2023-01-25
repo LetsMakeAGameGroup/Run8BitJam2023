@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class DangerZone : MonoBehaviour
 {
-    public float DangerZoneMaxDistanceFromPlayer;
+    public float DangerZoneSpeed;
     Coroutine DangerZoneCountdown;
+
+    private void Update()
+    {
+
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
