@@ -8,6 +8,11 @@ public class PlayerCamera : MonoBehaviour
     public Vector3 offset = new Vector3(0,0,-10);
     bool isActive;
 
+    private void Awake()
+    {
+        offset.z = transform.position.z;
+    }
+
     private void Start()
     {
         GameMode.Instance.onGameStart += StartCameraMovement;
@@ -24,7 +29,10 @@ public class PlayerCamera : MonoBehaviour
 
         if (followTarget)
         {
-            transform.position = followTarget.position + offset;
+            Vector3 xPos = followTarget.position + offset;
+            xPos.y = transform.position.y;
+
+            transform.position = xPos;
         }
     }
 }

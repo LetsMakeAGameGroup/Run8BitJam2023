@@ -12,19 +12,20 @@ public struct LevelSegmentData
 public class LevelSegment : MonoBehaviour
 {
     LevelManager levelManager;
+    public Transform levelSegmentPrefab;
 
     bool isProcedural;
     public Color segmentGizmosColor = new Color(1, 1, 1, 1);
     [SerializeField] LevelSegmentData levelSegmentData;
 
-    private void Start()
-    {
-        SetUpLevelSegment();
-    }
-
     public void InitializeSegment(LevelManager manager)
     {
         levelManager = manager;
+    }
+
+    public void Start()
+    {
+        SetUpLevelSegment();
     }
 
     public void InitializeSegment(LevelManager manager, LevelSegmentData spawnSegmentData)
@@ -35,10 +36,12 @@ public class LevelSegment : MonoBehaviour
 
     void SetUpLevelSegment()
     {
-        if (isProcedural) 
-        {
-            //If the segment is set to be procedually generated, here we spawn and position eveything
-        }
+        int randomPreset = Random.Range(0, ObjectPooler.Instance.objects.Count);
+
+        GameObject preset = ObjectPooler.Instance.GetObjectFromPool(randomPreset);
+        preset.transform.SetParent(transform);
+        preset.transform.position = transform.position;
+
     }
 
     public void SetLevelSegmentLocation(Vector2 newPosition)

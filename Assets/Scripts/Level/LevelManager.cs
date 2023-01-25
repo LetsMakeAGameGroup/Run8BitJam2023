@@ -22,6 +22,8 @@ public class LevelManager : MonoBehaviour
     public float DangerZoneMinDistance;
     public float DangerZoneMaxDistance;
 
+    public GameObject segmentPrefab;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -39,15 +41,16 @@ public class LevelManager : MonoBehaviour
     {
         for (int i = 0; i < segmentToSpawnCount; i++) 
         {
-            GameObject newSegmentObject = new GameObject("LevelSegment " + i);
-            newSegmentObject.transform.SetParent(transform);
+            GameObject newSegmentObject = Instantiate(segmentPrefab, transform, false);
             newSegmentObject.transform.position = new Vector3(SegmentSpawnData.levelSegmentXExtend * i, 0, 0);
 
-            LevelSegment segment = newSegmentObject.AddComponent<LevelSegment>();
+            LevelSegment segment = newSegmentObject.GetComponent<LevelSegment>();
 
             segment.InitializeSegment(this, SegmentSpawnData);
+
             segments.Add(segment);
         }
+
     }
 
     private void Update()
