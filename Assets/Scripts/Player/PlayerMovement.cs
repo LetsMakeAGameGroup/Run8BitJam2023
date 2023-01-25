@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float jumpForce = 20;
 
     private bool isGrounded = false;
-    public bool canMove = false;
+    [HideInInspector] public bool canMove = false;
     private bool isJetpacking = false;
 
     [SerializeField] private LayerMask groundLayer;
