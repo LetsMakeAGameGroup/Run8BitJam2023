@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float walkingSpeed = 10;
     [SerializeField] private float runningSpeed = 15;
     [SerializeField] private float jumpForce = 20;
+    [SerializeField] private float jetpackBoost = 5;
 
     private bool isGrounded = false;
     [HideInInspector] public bool canMove = false;
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour {
         //float currentSpeed = isRunning ? runningSpeed : walkingSpeed;
         if (playerController.fireTicks > 0) currentSpeed = runningSpeed;
         else currentSpeed = walkingSpeed;
+        if (isJetpacking) currentSpeed += jetpackBoost;
 
         // Constantly move towards the right.
         rb.velocity = new Vector2(currentSpeed, rb.velocity.y);

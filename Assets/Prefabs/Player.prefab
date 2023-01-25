@@ -50,6 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   batteries: 1
   currentTemp: 50
+  fireTicks: 0
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  fireColor: {r: 1, g: 0.5, b: 0, a: 1}
 --- !u!114 &7371057653992287490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d40d4372fe496d44594dd4d1c65a0d7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSpeed: 0
   walkingSpeed: 10
   runningSpeed: 15
   jumpForce: 6
