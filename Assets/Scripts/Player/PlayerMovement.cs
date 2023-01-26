@@ -65,20 +65,4 @@ public class PlayerMovement : MonoBehaviour {
             isJetpacking = false;
         }
     }
-
-    public void ReduceCurrentSpeedByTime(float newSpeed, float seconds)
-    {
-        StartCoroutine(ReduceCurrentSpeedByTimeC(newSpeed, seconds));
-    }
-
-    IEnumerator ReduceCurrentSpeedByTimeC(float newSpeed, float seconds) 
-    {
-        currentSpeed = newSpeed;
-
-        yield return new WaitForSeconds(seconds);
-
-        currentSpeed = walkingSpeed;
-
-        yield return null;
-    }
 }
