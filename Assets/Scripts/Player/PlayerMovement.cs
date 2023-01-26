@@ -33,11 +33,8 @@ public class PlayerMovement : MonoBehaviour {
     private void Update() {
         if (!canMove) return;
 
-        // Sets the player's speed to running or walking speed depending if the player is holding down the Sprint button or not.
-        //bool isRunning = Input.GetButton("Sprint");
-        //float currentSpeed = isRunning ? runningSpeed : walkingSpeed;
-        if (playerController.fireTicks > 0) currentSpeed = runningSpeed;
-        else currentSpeed = walkingSpeed;
+        // Sets the player's speed to runningSpeed or walkingSpeed depending if the player is on fire or not. Increases with jetpackBoost when jetpacking.
+        currentSpeed = (playerController.fireTicks > 0 ? runningSpeed : walkingSpeed);
         if (isJetpacking) currentSpeed += jetpackBoost;
 
         // Constantly move towards the right.
@@ -51,6 +48,8 @@ public class PlayerMovement : MonoBehaviour {
             if (isGrounded) {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             } else if (playerController.batteries > 0) {
+                playerController.batteries--;
+                HUDManager.Instance.UpdateBatteries(playerController.batteries);
                 isJetpacking = true;
             }
         }
@@ -59,18 +58,11 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     // Controls how jetpacking works once allowed to by isJetpacking.
-    // TODO: Would recommend setting a time limit for how long they can jetpack for per battery use.
     private void Jetpack() {
-        // Stop jetpacking once the player has touched the ground
-        if (isGrounded) {
-            isJetpacking = false;
-            playerController.batteries--;
-            HUDManager.Instance.UpdateBatteries(playerController.batteries);
-            return;
-        }
-
         if (Input.GetButton("Jump")) {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        } else {
+            isJetpacking = false;
         }
     }
 

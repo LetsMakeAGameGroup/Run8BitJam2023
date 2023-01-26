@@ -13,6 +13,7 @@ public class HUDManager : MonoBehaviour {
 
     [Header("Temperature HUD Settings")]
     [SerializeField] private TextMeshProUGUI tempText;
+    [SerializeField] private TextMeshProUGUI warningTimer;
     [SerializeField] private RectTransform tempGaugeTrans;
 
     private void Awake() {
@@ -35,5 +36,14 @@ public class HUDManager : MonoBehaviour {
     public void UpdateTemperature(int temperature) {
         tempText.text = temperature.ToString() + "°";
         tempGaugeTrans.anchoredPosition = new Vector2(tempGaugeTrans.anchoredPosition.x, temperature * 6.8f + 200);
+    }
+
+    public void UpdateWarning(float time) {
+        if (warningTimer.enabled == false) warningTimer.enabled = true;
+        warningTimer.text = Mathf.Floor(time+1).ToString();
+    }
+
+    public void DisableWarning() {
+        warningTimer.enabled = false;
     }
 }

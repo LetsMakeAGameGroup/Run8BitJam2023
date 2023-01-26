@@ -49,10 +49,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   batteries: 1
+  maxBatteries: 3
+  tempDecrease: 1
+  tempIncrease: 5
   currentTemp: 50
   fireTicks: 0
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  fireColor: {r: 1, g: 0.5, b: 0, a: 1}
 --- !u!114 &7371057653992287490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,7 +70,8 @@ MonoBehaviour:
   walkingSpeed: 10
   runningSpeed: 15
   jumpForce: 6
-  canMove: 1
+  jetpackBoost: 5
+  canMove: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

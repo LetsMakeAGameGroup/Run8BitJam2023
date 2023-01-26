@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Fire : MonoBehaviour {
@@ -13,6 +11,7 @@ public class Fire : MonoBehaviour {
 
         collision.GetComponent<SpriteRenderer>().color = fireColor;
         playerController.fireTicks = fireHP;
+        playerController.onFire = true;
         Destroy(gameObject);
     }
 }
