@@ -1060,6 +1060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DangerZoneSpeed: 9
+  SecondsToDestroyPlayer: 5
   maxDistanceFromPlayer: 15
   player: {fileID: 0}
 --- !u!4 &634586820

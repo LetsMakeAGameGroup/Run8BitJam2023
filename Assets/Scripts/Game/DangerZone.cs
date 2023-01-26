@@ -5,6 +5,7 @@ using UnityEngine;
 public class DangerZone : MonoBehaviour
 {
     public float DangerZoneSpeed;
+    public float SecondsToDestroyPlayer;
     Coroutine DangerZoneCountdown;
     bool isActive;
     public float maxDistanceFromPlayer;
@@ -53,7 +54,7 @@ public class DangerZone : MonoBehaviour
         {
             if (DangerZoneCountdown == null)
             {
-                DangerZoneCountdown = StartCoroutine(StartDangerZoneCountdown(5));
+                DangerZoneCountdown = StartCoroutine(StartDangerZoneCountdown(SecondsToDestroyPlayer));
             }
         }
     }
