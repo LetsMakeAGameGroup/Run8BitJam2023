@@ -7,8 +7,9 @@ public class HUDManager : MonoBehaviour {
 
     [Header("Battery HUD Settings")]
     public Image[] batteries;
-    [SerializeField] private Color missingBattery;
-    [SerializeField] private Color availableBattery;
+    public Image[] batteryLights;
+    [SerializeField] private Sprite missingBattery;
+    [SerializeField] private Sprite availableBattery;
 
     [Header("Temperature HUD Settings")]
     [SerializeField] private TextMeshProUGUI tempText;
@@ -25,13 +26,14 @@ public class HUDManager : MonoBehaviour {
     // Updates each battery in the HUD to represent how many batteries the player has.
     public void UpdateBatteries(int batteryCount) {
         for (int i = 0; i < batteries.Length; i++) {
-            batteries[i].color = (i + 1 <= batteryCount ? availableBattery : missingBattery);
+            batteries[i].enabled = (i + 1 <= batteryCount ? true : false);
+            batteryLights[i].sprite = (i + 1 <= batteryCount ? availableBattery : missingBattery);
         }
     }
 
     // Updates temperature text in the HUD, and position the gauge accordingly.
     public void UpdateTemperature(int temperature) {
         tempText.text = temperature.ToString() + "°";
-        tempGaugeTrans.anchoredPosition = new Vector2(tempGaugeTrans.anchoredPosition.x, temperature * 3 - 5);
+        tempGaugeTrans.anchoredPosition = new Vector2(tempGaugeTrans.anchoredPosition.x, temperature * 6.8f + 200);
     }
 }
