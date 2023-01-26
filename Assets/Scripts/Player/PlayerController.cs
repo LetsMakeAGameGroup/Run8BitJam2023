@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float warningTimer = 5f;
     private float currentWarningTime = 5f;
     private float tempTimer = 1f;
-    private Color defaultColor;
+    //private Color defaultColor;
     [HideInInspector] public bool onFire = false;
     [SerializeField] private int maxTempWarning = 95;
     [SerializeField] private int minTempWarning = 25;
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Start() {
         maxBatteries = HUDManager.Instance.batteries.Length;
-        defaultColor = GetComponent<SpriteRenderer>().color;
+        // = GetComponent<SpriteRenderer>().color;
         currentWarningTime = warningTimer;
     }
 
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour {
                 currentWarningTime -= Time.deltaTime;
                 HUDManager.Instance.UpdateWarning(currentWarningTime);
             } else {
-                GameMode.Instance.gameState = GameState.End;
+                GameMode.Instance.EndGame();
                 // TODO:  Bring up game over screen here
             }
         } else if (isWarning) {

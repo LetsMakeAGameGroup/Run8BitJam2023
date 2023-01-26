@@ -13,10 +13,16 @@ public class LevelSegment : MonoBehaviour
 {
     LevelManager levelManager;
     public Transform levelSegmentPrefab;
+    public ObjectPooler pooler;
 
     bool isProcedural;
     public Color segmentGizmosColor = new Color(1, 1, 1, 1);
     [SerializeField] LevelSegmentData levelSegmentData;
+
+    private void Awake()
+    {
+        pooler = ObjectPooler.Instance;
+    }
 
     public void InitializeSegment(LevelManager manager)
     {
@@ -53,6 +59,28 @@ public class LevelSegment : MonoBehaviour
     {
         //We restart the Level Segment & we Set it up again
         //Restart Code goes here
+
+        Debug.Log(transform.childCount);
+        float childCount = transform.childCount;
+
+        //Put every child back to the object pooler
+        for (int i = 0; i < childCount; i++)
+        {
+            if (transform.GetChild(i) != null)
+            {
+                Debug.Log(i);
+                Transform child = transform.GetChild(i);
+                Debug.Log("Moved Child: " + i + " index");
+
+                child.position = pooler.transform.position;
+
+                //Problem with parenting? Idk
+                //pooler.SetObjectToPoolerParent(child); //child.SetParent(ObjectPooler.Instance.GetPoolerTransform());
+
+                child.gameObject.SetActive(false);
+
+            }
+        }
 
         //We then set it up 
         SetUpLevelSegment();

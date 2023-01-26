@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
 
     public LevelSegmentData SegmentSpawnData;
     public int segmentToSpawnCount;
-    public int segmentSwitchXPosition;
+    public float segmentSwitchXPosition;
 
     public DangerZone dangerZone;
 
@@ -34,6 +34,7 @@ public class LevelManager : MonoBehaviour
         {
             Instance = this;
         }
+
     }
 
     // Start is called before the first frame update
@@ -51,6 +52,8 @@ public class LevelManager : MonoBehaviour
             segments.Add(segment);
         }
 
+        segmentSwitchXPosition = segments[4].transform.position.x + 9;
+
     }
 
     private void Update()
@@ -65,17 +68,17 @@ public class LevelManager : MonoBehaviour
             Vector2 dagnerZoneNewPostion = segments[4].transform.InverseTransformPoint(dangerZone.transform.position);
 
             //Grabs last two segments and swift them to the front
-            segments[4].SetLevelSegmentLocation(new Vector3(0, 0, 0));
-            segments[5].SetLevelSegmentLocation(new Vector3(18, 0, 0));
+            segments[4].SetLevelSegmentLocation(new Vector3(SegmentSpawnData.levelSegmentXExtend * 0, 0, 0));
+            segments[5].SetLevelSegmentLocation(new Vector3(SegmentSpawnData.levelSegmentXExtend * 1, 0, 0));
 
             //moves the rest forward
-            segments[0].SetLevelSegmentLocation(new Vector3(36, 0, 0));
+            segments[0].SetLevelSegmentLocation(new Vector3(SegmentSpawnData.levelSegmentXExtend * 2, 0, 0));
             segments[0].ResetLevelSegment();
-            segments[1].SetLevelSegmentLocation(new Vector3(54, 0, 0));
+            segments[1].SetLevelSegmentLocation(new Vector3(SegmentSpawnData.levelSegmentXExtend * 3, 0, 0));
             segments[1].ResetLevelSegment();
-            segments[2].SetLevelSegmentLocation(new Vector3(72, 0, 0));
+            segments[2].SetLevelSegmentLocation(new Vector3(SegmentSpawnData.levelSegmentXExtend * 4, 0, 0));
             segments[2].ResetLevelSegment();
-            segments[3].SetLevelSegmentLocation(new Vector3(90, 0, 0));
+            segments[3].SetLevelSegmentLocation(new Vector3(SegmentSpawnData.levelSegmentXExtend * 5, 0, 0));
             segments[3].ResetLevelSegment();
 
             //Reorders the list based on their X position
