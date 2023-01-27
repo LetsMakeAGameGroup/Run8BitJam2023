@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SpaceBudFull
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature.003
+    m_Weight: 1
+  - m_Path: Armature.003/B_Body
+    m_Weight: 1
+  - m_Path: Armature.003/B_Body/B_Torso
+    m_Weight: 1
+  - m_Path: Armature.003/B_Body/B_Torso/B_Backpack
+    m_Weight: 1
+  - m_Path: Armature.003/B_Body/B_Torso/B_Backpack/B_Backpack_end
+    m_Weight: 1
+  - m_Path: Armature.003/B_Body/B_Torso/B_Head
+    m_Weight: 1
+  - m_Path: Armature.003/B_Body/B_Torso/B_Head/B_Head_end
+    m_Weight: 1
+  - m_Path: Armature.003/B_Body/B_Torso/B_UpperArm.L
+    m_Weight: 1
+  - m_Path: Armature.003/B_Body/B_Torso/B_UpperArm.L/B_LowerArm.L
+    m_Weight: 1
+  - m_Path: Armature.003/B_Body/B_Torso/B_UpperArm.L/B_LowerArm.L/B_LowerArm.L_end
+    m_Weight: 1
+  - m_Path: Armature.003/B_Body/B_Torso/B_UpperArm.R
+    m_Weight: 1
+  - m_Path: Armature.003/B_Body/B_Torso/B_UpperArm.R/B_LowerArm.R
+    m_Weight: 1
+  - m_Path: Armature.003/B_Body/B_Torso/B_UpperArm.R/B_LowerArm.R/B_LowerArm.R_end
+    m_Weight: 1
+  - m_Path: Armature.003/Bone
+    m_Weight: 1
+  - m_Path: Armature.003/Bone/B_UpperLeg.L
+    m_Weight: 1
+  - m_Path: Armature.003/Bone/B_UpperLeg.L/B_LowerLeg.L
+    m_Weight: 1
+  - m_Path: Armature.003/Bone/B_UpperLeg.L/B_LowerLeg.L/B_Feet.L
+    m_Weight: 1
+  - m_Path: Armature.003/Bone/B_UpperLeg.L/B_LowerLeg.L/B_Feet.L/B_Feet.L_end
+    m_Weight: 1
+  - m_Path: Armature.003/Bone/B_UpperLeg.R
+    m_Weight: 1
+  - m_Path: Armature.003/Bone/B_UpperLeg.R/B_LowerLeg.R
+    m_Weight: 1
+  - m_Path: Armature.003/Bone/B_UpperLeg.R/B_LowerLeg.R/B_Feet.R
+    m_Weight: 1
+  - m_Path: Armature.003/Bone/B_UpperLeg.R/B_LowerLeg.R/B_Feet.R/B_Feet.R_end
+    m_Weight: 1
+  - m_Path: Cube.050
+    m_Weight: 1

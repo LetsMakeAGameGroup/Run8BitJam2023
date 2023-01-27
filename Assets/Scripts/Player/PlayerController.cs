@@ -20,6 +20,13 @@ public class PlayerController : MonoBehaviour {
 
     public bool tempIsActive = false;
 
+    Animator playeranimator;
+
+    private void Awake()
+    {
+        playeranimator = GetComponentInChildren<Animator>();
+    }
+
     private void Start() {
         maxBatteries = HUDManager.Instance.batteries.Length;
         currentWarningTime = warningTimer;
@@ -76,6 +83,17 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
             PauseController.Instance.TogglePause();
+        }
+
+        if (IsOnFire())
+        {
+            playeranimator.SetBool("OnFire", true);
+            playeranimator.SetLayerWeight(1, 1);
+        }
+        else 
+        {
+            playeranimator.SetBool("OnFire", false);
+            playeranimator.SetLayerWeight(1, 0);
         }
     }
 
