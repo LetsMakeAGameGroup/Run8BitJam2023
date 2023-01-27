@@ -8,11 +8,11 @@ public class Obstacle : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         PlayerController playerController = collision.GetComponent<PlayerController>();
-        if (playerController) {
-            playerController.onFire = false;
-            playerController.fireTicks = 0;
-            collision.GetComponent<PlayerMovement>().ReduceCurrentSpeedByTime(slowSpeedPerc, slowTime);
-            Destroy(gameObject);
-        }
+        if (!playerController) return;
+
+        playerController.SetOffFire();
+
+        collision.GetComponent<PlayerMovement>().ReduceCurrentSpeedByTime(slowSpeedPerc, slowTime);
+        Destroy(gameObject);
     }
 }

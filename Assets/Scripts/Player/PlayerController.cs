@@ -5,22 +5,21 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector] public int batteries = 1;
     [HideInInspector] public int maxBatteries = 3;
 
+    [SerializeField] private ParticleSystem fireParticles;
     [SerializeField] private int tempDecrease = 1;
     [SerializeField] private int tempIncrease = 5;
     [HideInInspector] public int currentTemp = 50;
-    [HideInInspector] public int fireTicks = 0;
+    private int fireTicks = 0;
     [SerializeField] private float warningTimer = 5f;
     private float currentWarningTime = 5f;
     private float tempTimer = 1f;
-    //private Color defaultColor;
-    [HideInInspector] public bool onFire = false;
+
     [SerializeField] private int maxTempWarning = 95;
     [SerializeField] private int minTempWarning = 25;
     private bool isWarning = false;
 
     private void Start() {
         maxBatteries = HUDManager.Instance.batteries.Length;
-        // = GetComponent<SpriteRenderer>().color;
         currentWarningTime = warningTimer;
     }
 
@@ -30,9 +29,6 @@ public class PlayerController : MonoBehaviour {
             tempTimer -= Time.deltaTime;
         } else {
             if (fireTicks > 0) {
-                // TODO:  This should be moved to after removing fireTicks but that isn't implemented yet.
-                //if (fireTicks == 0) GetComponent<SpriteRenderer>().color = defaultColor;
-
                 if (currentTemp + tempIncrease <= 100) currentTemp += tempIncrease;
                 else currentTemp = 100;
             } else {
@@ -58,5 +54,20 @@ public class PlayerController : MonoBehaviour {
             currentWarningTime = warningTimer;
             HUDManager.Instance.DisableWarning();
         }
+    }
+
+    public bool IsOnFire() {
+        if (fireTicks > 0) return true;
+        else return false;
+    }
+
+    public void SetOnFire(int fireHP) {
+        fireParticles.Play();
+        fireTicks = fireHP;
+    }
+
+    public void SetOffFire() {
+        fireParticles.Stop();
+        fireTicks = 0;
     }
 }

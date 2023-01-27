@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour {
 
         // Sets the player's speed to runningSpeed or walkingSpeed depending if the player is on fire or not. Increases with jetpackBoost when jetpacking.
         if (slowCount == 0) {
-            currentSpeed = (playerController.fireTicks > 0 ? runningSpeed : walkingSpeed);
+            currentSpeed = (playerController.IsOnFire() ? runningSpeed : walkingSpeed);
             if (isJetpacking) currentSpeed += jetpackBoost;
         }
 
