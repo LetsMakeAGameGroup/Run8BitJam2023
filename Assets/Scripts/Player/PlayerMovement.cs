@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private Rigidbody2D rb;
     private PlayerController playerController;
+    bool wantsToJump;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -101,5 +102,10 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
         currentSpeed = newSlowedSpeed;
+    }
+
+    public bool IsGrounded() 
+    {
+        return isGrounded;
     }
 }

@@ -22,7 +22,7 @@ AvatarMask:
   - m_Path: Armature.003/B_Body/B_Torso/B_Backpack/B_Backpack_end
     m_Weight: 0
   - m_Path: Armature.003/B_Body/B_Torso/B_Head
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature.003/B_Body/B_Torso/B_Head/B_Head_end
     m_Weight: 0
   - m_Path: Armature.003/B_Body/B_Torso/B_UpperArm.L

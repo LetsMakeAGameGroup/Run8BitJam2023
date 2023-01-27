@@ -21,10 +21,11 @@ public class PlayerController : MonoBehaviour {
     public bool tempIsActive = false;
 
     Animator playeranimator;
-
+    PlayerMovement movement;
     private void Awake()
     {
         playeranimator = GetComponentInChildren<Animator>();
+        movement = GetComponentInChildren<PlayerMovement>();
     }
 
     private void Start() {
@@ -85,16 +86,11 @@ public class PlayerController : MonoBehaviour {
             PauseController.Instance.TogglePause();
         }
 
-        if (IsOnFire())
-        {
-            playeranimator.SetBool("OnFire", true);
-            playeranimator.SetLayerWeight(1, 1);
-        }
-        else 
-        {
-            playeranimator.SetBool("OnFire", false);
-            playeranimator.SetLayerWeight(1, 0);
-        }
+        playeranimator.SetBool("OnFire", IsOnFire());
+        int boolInt = IsOnFire() ? 1 : 0;
+        playeranimator.SetLayerWeight(1, boolInt);
+
+        playeranimator.SetBool("IsGrounded", movement.IsGrounded());
     }
 
     public bool IsOnFire() {
