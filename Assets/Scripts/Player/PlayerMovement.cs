@@ -15,6 +15,10 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector] public bool canMove = false;
     private bool isJetpacking = false;
 
+    [SerializeField] private float slowSpeedThreshold;
+    private float slowedSpeedPerc = 0;
+    [HideInInspector] public int slowCount = 0;
+
     [SerializeField] private LayerMask groundLayer;
 
     private Rigidbody2D rb;
@@ -25,8 +29,7 @@ public class PlayerMovement : MonoBehaviour {
         playerController = GetComponent<PlayerController>();
     }
 
-    private void Start()
-    {
+    private void Start() {
         currentSpeed = walkingSpeed;
     }
 
@@ -34,8 +37,10 @@ public class PlayerMovement : MonoBehaviour {
         if (!canMove) return;
 
         // Sets the player's speed to runningSpeed or walkingSpeed depending if the player is on fire or not. Increases with jetpackBoost when jetpacking.
-        currentSpeed = (playerController.fireTicks > 0 ? runningSpeed : walkingSpeed);
-        if (isJetpacking) currentSpeed += jetpackBoost;
+        if (slowCount == 0) {
+            currentSpeed = (playerController.fireTicks > 0 ? runningSpeed : walkingSpeed);
+            if (isJetpacking) currentSpeed += jetpackBoost;
+        }
 
         // Constantly move towards the right.
         rb.velocity = new Vector2(currentSpeed, rb.velocity.y);
@@ -51,6 +56,7 @@ public class PlayerMovement : MonoBehaviour {
                 playerController.batteries--;
                 HUDManager.Instance.UpdateBatteries(playerController.batteries);
                 isJetpacking = true;
+                currentSpeed += jetpackBoost;
             }
         }
 
@@ -63,6 +69,34 @@ public class PlayerMovement : MonoBehaviour {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         } else {
             isJetpacking = false;
+            if (slowCount > 0) currentSpeed -= jetpackBoost;
         }
+    }
+
+    public void ReduceCurrentSpeedByTime(float newSlowPerc, float seconds) {
+        StartCoroutine(ReduceCurrentSpeedByTimeC(newSlowPerc, seconds));
+    }
+
+    IEnumerator ReduceCurrentSpeedByTimeC(float newSlowPerc, float seconds) {
+        slowedSpeedPerc = newSlowPerc;
+        slowCount++;
+        SetSlowedSpeed();
+
+        yield return new WaitForSeconds(seconds);
+
+        slowCount--;
+        SetSlowedSpeed();
+    }
+
+    public void SetSlowedSpeed() {
+        float newSlowedSpeed = walkingSpeed;
+        for (int i = 0; i < slowCount; i++) {
+            newSlowedSpeed *= (100f - slowedSpeedPerc) / 100f;
+            if (newSlowedSpeed <= slowSpeedThreshold) {
+                newSlowedSpeed = slowSpeedThreshold;
+                break;
+            }
+        }
+        currentSpeed = newSlowedSpeed;
     }
 }
