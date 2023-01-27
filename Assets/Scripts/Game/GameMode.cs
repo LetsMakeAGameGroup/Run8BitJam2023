@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public enum GameState 
 {
@@ -38,8 +39,10 @@ public class GameMode : MonoBehaviour
     public OnGameEnd onGameEnd;
 
     //Player Reference
-    public PlayerController playerController;
+    [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private DangerZone dangerZone;
+
 
     private void Awake()
     {
@@ -74,6 +77,12 @@ public class GameMode : MonoBehaviour
                 //Create player here
             }
         }
+
+        //If dangerzone aint initially assigned, we find it
+        if (playerMovement == null)
+        {
+            dangerZone = FindObjectOfType<DangerZone>();
+        }
     }
 
     private void Start()
@@ -100,6 +109,7 @@ public class GameMode : MonoBehaviour
         }
 
         playerMovement.canMove = true;
+        playerController.tempIsActive = true;
         gameState = GameState.InProcess;
     }
 
@@ -107,11 +117,13 @@ public class GameMode : MonoBehaviour
     {
         if (gameState == GameState.InProcess)
         {
+            if (PauseController.Instance.isPaused) { return; }
+
             //I believe .ToString() generates garbage, there might be a more beneficial way.
             gameTime += Time.deltaTime;
             SetTimeText(GetTimeString(gameTime));
 
-            milesCounter += Time.deltaTime;
+            milesCounter +=  (playerMovement.currentSpeed / playerMovement.walkingSpeed) * Time.deltaTime;
             SetMilesText(Mathf.RoundToInt(milesCounter).ToString());
         }
     }
@@ -119,6 +131,14 @@ public class GameMode : MonoBehaviour
     public void EndGame() 
     {
         gameState = GameState.End;
+
+        if (onGameEnd != null)
+        {
+            onGameEnd();
+        }
+
+        HUDManager.Instance.SetAfterScreenText(milesText.text, timeText.text);
+        HUDManager.Instance.ToggleLostScreen();
 
         //Bring up Losing Screen
     }
@@ -153,6 +173,11 @@ public class GameMode : MonoBehaviour
     public PlayerController GetPlayerController() 
     {
         return playerController;
+    }
+
+    public void PlayAgain() 
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }

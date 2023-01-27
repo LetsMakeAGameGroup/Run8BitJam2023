@@ -16,6 +16,13 @@ public class HUDManager : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI warningTimer;
     [SerializeField] private RectTransform tempGaugeTrans;
 
+    public GameObject PauseMenu;
+    public GameObject LostMenu;
+
+    //UI Stuff
+    [SerializeField] TMP_Text loseTimeText;
+    [SerializeField] TMP_Text loseMilesText;
+
     private void Awake() {
         if (Instance != null & Instance != this) {
             Destroy(this);
@@ -45,5 +52,21 @@ public class HUDManager : MonoBehaviour {
 
     public void DisableWarning() {
         warningTimer.enabled = false;
+    }
+
+    public void TogglePauseMenu() 
+    {
+        PauseMenu.SetActive(!PauseMenu.activeInHierarchy);
+    }
+
+    public void ToggleLostScreen() 
+    {
+        LostMenu.SetActive(!LostMenu.activeInHierarchy);
+    }
+
+    public void SetAfterScreenText(string miles, string time) 
+    {
+        loseMilesText.text = miles;
+        loseTimeText.text = time;
     }
 }

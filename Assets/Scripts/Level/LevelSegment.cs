@@ -42,7 +42,17 @@ public class LevelSegment : MonoBehaviour
 
     void SetUpLevelSegment()
     {
-        int randomPreset = Random.Range(0, ObjectPooler.Instance.objects.Count);
+        if (!levelManager.firstSegmentSpawned) 
+        {
+            GameObject firstSegmentObj = ObjectPooler.Instance.GetObjectFromPool(0);
+            firstSegmentObj.transform.SetParent(transform);
+            firstSegmentObj.transform.position = transform.position;
+
+            levelManager.firstSegmentSpawned = true;
+            return;
+        }
+
+        int randomPreset = Random.Range(1, ObjectPooler.Instance.objects.Count);
 
         GameObject preset = ObjectPooler.Instance.GetObjectFromPool(randomPreset);
         preset.transform.SetParent(transform);

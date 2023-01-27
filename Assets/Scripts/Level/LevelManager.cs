@@ -24,6 +24,8 @@ public class LevelManager : MonoBehaviour
 
     public GameObject segmentPrefab;
 
+    public bool firstSegmentSpawned;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

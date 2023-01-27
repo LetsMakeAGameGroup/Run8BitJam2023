@@ -18,25 +18,37 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private int minTempWarning = 25;
     private bool isWarning = false;
 
+    public bool tempIsActive = false;
+
     private void Start() {
         maxBatteries = HUDManager.Instance.batteries.Length;
         currentWarningTime = warningTimer;
     }
 
     private void Update() {
+
         // Naturally, decrease the currentTemp by tempDecrease every second. If the player is on fire, increase currentTemp by tempIncrease every second.
-        if (tempTimer > 0) {
-            tempTimer -= Time.deltaTime;
-        } else {
-            if (fireTicks > 0) {
-                if (currentTemp + tempIncrease <= 100) currentTemp += tempIncrease;
-                else currentTemp = 100;
-            } else {
-                if (currentTemp - tempDecrease >= 0) currentTemp -= tempDecrease;
-                else currentTemp = 0;
+        if (tempIsActive && !PauseController.Instance.isPaused)
+        {
+            if (tempTimer > 0)
+            {
+                tempTimer -= Time.deltaTime;
             }
-            HUDManager.Instance.UpdateTemperature(currentTemp);
-            tempTimer = 1f;
+            else
+            {
+                if (fireTicks > 0)
+                {
+                    if (currentTemp + tempIncrease <= 100) currentTemp += tempIncrease;
+                    else currentTemp = 100;
+                }
+                else
+                {
+                    if (currentTemp - tempDecrease >= 0) currentTemp -= tempDecrease;
+                    else currentTemp = 0;
+                }
+                HUDManager.Instance.UpdateTemperature(currentTemp);
+                tempTimer = 1f;
+            }
         }
 
         // If the player's temperature is out of the ideal range, warn the player they're in danger of losing. If in danger for warningTimer seconds, then the game is lost.
@@ -46,13 +58,24 @@ public class PlayerController : MonoBehaviour {
                 currentWarningTime -= Time.deltaTime;
                 HUDManager.Instance.UpdateWarning(currentWarningTime);
             } else {
-                GameMode.Instance.EndGame();
+                //Disable player for now
+                if (GameMode.Instance != null)
+                {
+                    GameMode.Instance.EndGame();
+                }
+
+                gameObject.SetActive(false);
                 // TODO:  Bring up game over screen here
             }
         } else if (isWarning) {
             isWarning = false;
             currentWarningTime = warningTimer;
             HUDManager.Instance.DisableWarning();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            PauseController.Instance.TogglePause();
         }
     }
 

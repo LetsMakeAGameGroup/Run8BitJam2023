@@ -19,18 +19,20 @@ public class DangerZone : MonoBehaviour
         player = GameMode.Instance.GetPlayerController().transform;
     }
 
-    void StartDangerZone() 
+    public void StartDangerZone() 
     {
         isActive = true;
     }
 
-    void StopDangerZone() 
+    public void StopDangerZone() 
     {
         isActive = false;
     }
 
     private void LateUpdate()
     {
+        if (PauseController.Instance.isPaused) { return; }
+
         if (!isActive) 
         {
             return;
@@ -80,10 +82,22 @@ public class DangerZone : MonoBehaviour
 
         //We stayed more than the seconds allowed
         //We die
-        player.gameObject.SetActive(false);
-        GameMode.Instance.EndGame();
+
+        OnGameEnd();
+
 
         yield return null;
+    }
+
+    void OnGameEnd() 
+    {
+        StopDangerZone();
+        player.gameObject.SetActive(false);
+
+        if (GameMode.Instance != null)
+        {
+            GameMode.Instance.EndGame();
+        }
     }
 
     public void SetDeadZonePosition(Vector2 newPosition) 

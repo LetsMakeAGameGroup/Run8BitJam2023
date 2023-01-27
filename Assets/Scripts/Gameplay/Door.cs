@@ -1,8 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Door : MonoBehaviour {
     [SerializeField] private int health = 10;
     private bool isTriggered = false;
+    Animator animator;
+    public Collider2D doorCollider;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Update() {
         if (isTriggered && Input.GetButtonDown("Submit")) health--;
@@ -29,6 +38,21 @@ public class Door : MonoBehaviour {
     }
 
     private void DestroyDoor() {
-        Destroy(gameObject);
+        animator.SetTrigger("BreakDoor");
+        doorCollider.isTrigger = true;
+        //StartCoroutine();
     }
+
+    IEnumerator DisableObject(float seconds) 
+    {
+        yield return new WaitForSeconds(seconds);
+        gameObject.SetActive(false);
+        yield return null;
+    }
+
+    private void OnDisable()
+    {
+        doorCollider.isTrigger = false;
+    }
+
 }

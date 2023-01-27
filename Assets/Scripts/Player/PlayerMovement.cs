@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerController))]
 public class PlayerMovement : MonoBehaviour {
     public float currentSpeed;
-    [SerializeField] private float walkingSpeed = 10;
+    public float walkingSpeed = 10;
     [SerializeField] private float runningSpeed = 15;
     [SerializeField] private float jumpForce = 20;
     [SerializeField] private float jetpackBoost = 5;
@@ -34,6 +34,9 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void Update() {
+
+        if (PauseController.Instance.isPaused) { rb.isKinematic = true; rb.simulated = false; } else { rb.isKinematic = false; rb.simulated = true; }
+
         if (!canMove) return;
 
         // Sets the player's speed to runningSpeed or walkingSpeed depending if the player is on fire or not. Increases with jetpackBoost when jetpacking.
