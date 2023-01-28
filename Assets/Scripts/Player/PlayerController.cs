@@ -73,7 +73,6 @@ public class PlayerController : MonoBehaviour {
                 }
 
                 gameObject.SetActive(false);
-                // TODO:  Bring up game over screen here
             }
         } else if (isWarning) {
             isWarning = false;

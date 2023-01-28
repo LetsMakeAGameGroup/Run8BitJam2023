@@ -139,6 +139,7 @@ public class GameMode : MonoBehaviour
 
         HUDManager.Instance.SetAfterScreenText(milesText.text, timeText.text);
         HUDManager.Instance.ToggleLostScreen();
+        MusicManager.Instance.GameOverMusic();
 
         //Bring up Losing Screen
     }
