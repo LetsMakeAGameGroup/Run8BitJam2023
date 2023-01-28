@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
+  isTriggered: 0
   doorCollider: {fileID: 137405743361843453}
 --- !u!61 &137405743283292696
 BoxCollider2D:
@@ -63,7 +64,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.60694414, y: 1.902643}
+  m_Offset: {x: -0.44653314, y: 1.902643}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -74,7 +75,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7861117, y: 4.004173}
+  m_Size: {x: 1.1069337, y: 4.004173}
   m_EdgeRadius: 0
 --- !u!95 &7881799532059730567
 Animator:
@@ -137,7 +138,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 137405743361843455}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5b683ca30cc478043b04ab8e7e696463, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

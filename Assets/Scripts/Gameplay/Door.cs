@@ -5,10 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Door : MonoBehaviour {
     [SerializeField] private int health = 10;
-    private bool isTriggered = false;
+    public bool isTriggered = false;
     Animator animator;
     public Collider2D doorCollider;
 
+    PlayerController playerPunching;
+    bool destroyed;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -26,9 +28,14 @@ public class Door : MonoBehaviour {
 
         if (playerController.IsOnFire()) {
             DestroyDoor();
-        } else {
-            isTriggered = true;
+
+            return;
         }
+
+        isTriggered = true;
+        playerPunching = playerController;
+        playerPunching.canPunchDoor = true;
+        playerPunching.SetOnDoor(true);
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
@@ -39,8 +46,18 @@ public class Door : MonoBehaviour {
     }
 
     private void DestroyDoor() {
+
+        if(destroyed) return;
+
+        if (playerPunching != null)
+        {
+            playerPunching.canPunchDoor = false;
+            playerPunching.SetOnDoor(false);
+        }
+
         animator.SetTrigger("BreakDoor");
         doorCollider.isTrigger = true;
+        destroyed = true;
         //StartCoroutine();
     }
 
@@ -53,7 +70,9 @@ public class Door : MonoBehaviour {
 
     private void OnDisable()
     {
+        destroyed = false;
         doorCollider.isTrigger = false;
+        playerPunching = null;
     }
 
 }

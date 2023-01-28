@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour {
 
     Animator playeranimator;
     PlayerMovement movement;
+
+    public bool canPunchDoor;
+    bool gameStarted;
+
     private void Awake()
     {
         playeranimator = GetComponentInChildren<Animator>();
@@ -90,6 +94,24 @@ public class PlayerController : MonoBehaviour {
         playeranimator.SetLayerWeight(1, boolInt);
 
         playeranimator.SetBool("IsGrounded", movement.IsGrounded());
+
+        if (gameStarted)
+        {
+            if (canPunchDoor)
+            {
+                bool punch = Input.GetButtonDown("Submit");
+                playeranimator.SetBool("Idle", true);
+
+                if (punch)
+                {
+                    playeranimator.SetTrigger("Punch");
+                }
+            }
+            else 
+            {
+                playeranimator.SetBool("Idle", false);
+            }
+        }
     }
 
     public bool IsOnFire() {
@@ -110,5 +132,20 @@ public class PlayerController : MonoBehaviour {
     public void ReduceFire() {
         fireTicks--;
         if (fireTicks == 0) SetOffFire();
+    }
+
+    public void ToggleIdleAnimation() 
+    {
+        playeranimator.SetBool("Idle", !playeranimator.GetBool("Idle"));
+
+        if (!gameStarted)
+        {
+            gameStarted = true;
+        }
+    }
+
+    public void SetOnDoor(bool newOnDoor)
+    {
+        movement.isOnDoor = newOnDoor;
     }
 }
