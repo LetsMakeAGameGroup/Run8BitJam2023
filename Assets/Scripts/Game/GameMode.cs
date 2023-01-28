@@ -110,6 +110,7 @@ public class GameMode : MonoBehaviour
 
         playerMovement.canMove = true;
         playerController.tempIsActive = true;
+        playerController.ToggleIdleAnimation();
         gameState = GameState.InProcess;
     }
 

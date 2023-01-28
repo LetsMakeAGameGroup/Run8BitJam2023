@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour {
     private PlayerController playerController;
     bool wantsToJump;
 
+    public bool isOnDoor;
+
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         playerController = GetComponent<PlayerController>();
@@ -52,9 +54,11 @@ public class PlayerMovement : MonoBehaviour {
             if (currentSpeed > maxSpeedThreshold) currentSpeed = maxSpeedThreshold;
         }
 
-        // Constantly move towards the right.
-        rb.velocity = new Vector2(currentSpeed, rb.velocity.y);
-
+        if (!isOnDoor)
+        {
+            // Constantly move towards the right.
+            rb.velocity = new Vector2(currentSpeed, rb.velocity.y);
+        }
 
 
         // When pressing the Jump button, do a normal jump when touching the ground. While in the air, prepare to jetpack when the player has at least one battery.
@@ -115,4 +119,6 @@ public class PlayerMovement : MonoBehaviour {
     {
         return isGrounded;
     }
+
+
 }
