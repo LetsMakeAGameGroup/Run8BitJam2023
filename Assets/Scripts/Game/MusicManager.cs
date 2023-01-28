@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour {
@@ -19,6 +20,8 @@ public class MusicManager : MonoBehaviour {
         transform.position = Camera.main.transform.position;
 
         audioSource = GetComponent<AudioSource>();
+
+        audioSource.volume = (PlayerPrefs.HasKey("SoundVolume") ? PlayerPrefs.GetFloat("SoundVolume") : 50f) / 100f;
 
         PlayRandomSong();
     }

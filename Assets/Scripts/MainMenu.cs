@@ -10,16 +10,12 @@ public class MainMenu : MonoBehaviour
     public GameObject mainMenu;
     public GameObject optionsMenu;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Slider soundSlider;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void Awake() {
+        if (PlayerPrefs.HasKey("SoundVolume")) {
+            soundSlider.value = PlayerPrefs.GetFloat("SoundVolume");
+        }
     }
 
     public void StartGame() 
@@ -39,4 +35,8 @@ public class MainMenu : MonoBehaviour
         optionsMenu.SetActive(false);
     }
 
+    public void SetSoundVolume(float volume) {
+        PlayerPrefs.SetFloat("SoundVolume", volume);
+        MusicManager.Instance.GetComponent<AudioSource>().volume = volume / 100f;
+    }
 }
