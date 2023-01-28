@@ -36,6 +36,9 @@ public class PlayerMovement : MonoBehaviour {
 
     private void Update() {
 
+        // Raycast below the player to check if there is an object with groundLayer.
+        isGrounded = Physics2D.Raycast(transform.position, -Vector2.up, 0.6f, groundLayer);
+
         if (PauseController.Instance.isPaused) { rb.isKinematic = true; rb.simulated = false; } else { rb.isKinematic = false; rb.simulated = true; }
 
         if (!canMove) return;
@@ -49,8 +52,7 @@ public class PlayerMovement : MonoBehaviour {
         // Constantly move towards the right.
         rb.velocity = new Vector2(currentSpeed, rb.velocity.y);
 
-        // Raycast below the player to check if there is an object with groundLayer.
-        isGrounded = Physics2D.Raycast(transform.position, -Vector2.up, 0.6f, groundLayer);
+
 
         // When pressing the Jump button, do a normal jump when touching the ground. While in the air, prepare to jetpack when the player has at least one battery.
         if (Input.GetButtonDown("Jump")) {
