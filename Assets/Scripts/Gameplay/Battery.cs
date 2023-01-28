@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class Battery : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         // When the player collides with this Battery, check if the player has space to pick it up before doing so.

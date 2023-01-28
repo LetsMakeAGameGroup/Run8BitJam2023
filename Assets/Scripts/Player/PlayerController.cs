@@ -107,4 +107,9 @@ public class PlayerController : MonoBehaviour {
         fireParticles.Stop();
         fireTicks = 0;
     }
+
+    public void ReduceFire() {
+        fireTicks--;
+        if (fireTicks == 0) SetOffFire();
+    }
 }

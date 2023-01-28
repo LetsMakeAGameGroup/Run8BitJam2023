@@ -10,12 +10,13 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float runningSpeed = 15;
     [SerializeField] private float jumpForce = 20;
     [SerializeField] private float jetpackBoost = 5;
+    [SerializeField] private float minSpeedThreshold = 2f;
+    [SerializeField] private float maxSpeedThreshold = 18f;
 
     private bool isGrounded = false;
     [HideInInspector] public bool canMove = false;
     private bool isJetpacking = false;
 
-    [SerializeField] private float slowSpeedThreshold;
     private float slowedSpeedPerc = 0;
     [HideInInspector] public int slowCount = 0;
 
@@ -47,6 +48,7 @@ public class PlayerMovement : MonoBehaviour {
         if (slowCount == 0) {
             currentSpeed = (playerController.IsOnFire() ? runningSpeed : walkingSpeed);
             if (isJetpacking) currentSpeed += jetpackBoost;
+            if (currentSpeed > maxSpeedThreshold) currentSpeed = maxSpeedThreshold;
         }
 
         // Constantly move towards the right.
@@ -98,8 +100,8 @@ public class PlayerMovement : MonoBehaviour {
         float newSlowedSpeed = walkingSpeed;
         for (int i = 0; i < slowCount; i++) {
             newSlowedSpeed *= (100f - slowedSpeedPerc) / 100f;
-            if (newSlowedSpeed <= slowSpeedThreshold) {
-                newSlowedSpeed = slowSpeedThreshold;
+            if (newSlowedSpeed <= minSpeedThreshold) {
+                newSlowedSpeed = minSpeedThreshold;
                 break;
             }
         }
