@@ -35,6 +35,7 @@ public class GameMode : MonoBehaviour
     public delegate void OnGameStart();
     public OnGameStart onGameStart;
 
+    bool GameStarted;
     public delegate void OnGameEnd();
     public OnGameEnd onGameEnd;
 
@@ -43,6 +44,8 @@ public class GameMode : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private DangerZone dangerZone;
 
+    public TMP_Text PressSpaceToStartText;
+    public TMP_Text startTimeText;
 
     private void Awake()
     {
@@ -87,13 +90,25 @@ public class GameMode : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(StartGameCountdown(startGameTimer));
+        PressSpaceToStartText.gameObject.SetActive(true);
     }
 
     IEnumerator StartGameCountdown(float Seconds) 
     {
-        yield return new WaitForSeconds(Seconds);
+        while (Seconds != 0) 
+        {
+            startTimeText.text = (Seconds - 1).ToString();
+            Seconds -= 1;
 
+            if (Seconds == 0)
+            {
+                startTimeText.text = "GO!";
+            }
+            yield return new WaitForSeconds(1);
+
+        }
+
+        startTimeText.gameObject.SetActive(false);
         StartGame();
 
         yield return null;
@@ -116,6 +131,17 @@ public class GameMode : MonoBehaviour
 
     void Update() 
     {
+        if (gameState == GameState.Initialize) 
+        {
+            if (Input.GetKeyDown(KeyCode.Space)) 
+            {
+                StartCoroutine(StartGameCountdown(startGameTimer));
+                gameState = GameState.Starting;
+                PressSpaceToStartText.gameObject.SetActive(false);
+                startTimeText.gameObject.SetActive(true);
+            }
+        }
+
         if (gameState == GameState.InProcess)
         {
             if (PauseController.Instance.isPaused) { return; }
