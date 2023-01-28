@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float jetpackBoost = 5;
     [SerializeField] private float minSpeedThreshold = 2f;
     [SerializeField] private float maxSpeedThreshold = 18f;
+    [SerializeField] private ParticleSystem jetpackParticles;
 
     private bool isGrounded = false;
     [HideInInspector] public bool canMove = false;
@@ -63,6 +64,7 @@ public class PlayerMovement : MonoBehaviour {
             } else if (playerController.batteries > 0) {
                 playerController.batteries--;
                 HUDManager.Instance.UpdateBatteries(playerController.batteries);
+                jetpackParticles.Play();
                 isJetpacking = true;
                 currentSpeed += jetpackBoost;
             }
@@ -77,6 +79,7 @@ public class PlayerMovement : MonoBehaviour {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         } else {
             isJetpacking = false;
+            jetpackParticles.Stop();
             if (slowCount > 0) currentSpeed -= jetpackBoost;
         }
     }
