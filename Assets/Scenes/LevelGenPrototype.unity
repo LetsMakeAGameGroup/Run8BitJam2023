@@ -4600,6 +4600,12 @@ MonoBehaviour:
   - objectKey: 9
     poolGameObjectPrefab: {fileID: 8749353518948967826, guid: 274f7face6152e9498154b3f6c945f93, type: 3}
     ammount: 10
+  - objectKey: 10
+    poolGameObjectPrefab: {fileID: 8749353518948967826, guid: 26c36edccdad4214f9c1f6620b2a0c02, type: 3}
+    ammount: 10
+  - objectKey: 11
+    poolGameObjectPrefab: {fileID: 8749353518948967826, guid: 2d4fbcbde0d60b84d82a201f8ac41d19, type: 3}
+    ammount: 10
 --- !u!4 &1870921371
 Transform:
   m_ObjectHideFlags: 0

@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbdfa9570affc7b4e94f6ae90b833970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 1
   isTriggered: 0
   doorCollider: {fileID: 137405743361843453}
 --- !u!61 &137405743283292696
