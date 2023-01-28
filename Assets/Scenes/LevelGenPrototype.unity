@@ -4794,6 +4794,9 @@ MonoBehaviour:
   - objectKey: 11
     poolGameObjectPrefab: {fileID: 8749353518948967826, guid: 2d4fbcbde0d60b84d82a201f8ac41d19, type: 3}
     ammount: 10
+  - objectKey: 12
+    poolGameObjectPrefab: {fileID: 8749353518948967826, guid: 3710be26900b24046ac28a5555f23f9a, type: 3}
+    ammount: 10
 --- !u!4 &1870921371
 Transform:
   m_ObjectHideFlags: 0
@@ -5749,6 +5752,14 @@ PrefabInstance:
     - target: {fileID: 5594307690967345316, guid: 05ad8cdf44b8c104b9a44d17b495ad48, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7371057653992287491, guid: 05ad8cdf44b8c104b9a44d17b495ad48, type: 3}
+      propertyPath: tempDecrease
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7371057653992287491, guid: 05ad8cdf44b8c104b9a44d17b495ad48, type: 3}
+      propertyPath: tempIncrease
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7371057653992287613, guid: 05ad8cdf44b8c104b9a44d17b495ad48, type: 3}
       propertyPath: m_RootOrder
