@@ -201,7 +201,7 @@ public class GameMode : MonoBehaviour
             return;
         }
 
-        milesText.text = newText;
+        milesText.text = "Miles: " + newText;
     }
 
     public PlayerController GetPlayerController() 
