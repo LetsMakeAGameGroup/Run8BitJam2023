@@ -47,6 +47,8 @@ public class GameMode : MonoBehaviour
     public TMP_Text PressSpaceToStartText;
     public TMP_Text startTimeText;
 
+    [SerializeField] private AudioClip startClip;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -103,6 +105,10 @@ public class GameMode : MonoBehaviour
             if (Seconds == 0)
             {
                 startTimeText.text = "GO!";
+                AudioSource audio = GetComponent<AudioSource>();
+                audio.clip = startClip;
+                audio.volume = (PlayerPrefs.HasKey("FXVolume") ? PlayerPrefs.GetFloat("FXVolume") / 100f : 0.5f);
+                audio.Play();
             }
             yield return new WaitForSeconds(1);
 

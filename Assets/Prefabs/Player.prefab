@@ -9685,6 +9685,8 @@ MonoBehaviour:
   maxTempWarning: 95
   minTempWarning: 25
   tempIsActive: 0
+  canPunchDoor: 0
+  tempWarningClip: {fileID: 8300000, guid: 16b9f29ff1a5c874a99131117b02e7c5, type: 3}
 --- !u!114 &7371057653992287490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9710,6 +9712,15 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  isOnDoor: 0
+  groundedCooldown: 0.25
+  runningClip: {fileID: 8300000, guid: 33d78ca991aac954b8afb2ca99ff19b2, type: 3}
+  runningOnFireClip: {fileID: 8300000, guid: 58e5a2c331869a746860d4112a6b4706, type: 3}
+  jumpClips:
+  - {fileID: 8300000, guid: 4e275cb016be4eb48a1e46ecc2dfe29b, type: 3}
+  - {fileID: 8300000, guid: f9d6b5c1fcfd2d5459add858f1a6cbbb, type: 3}
+  jetpackStartClip: {fileID: 8300000, guid: 2e96e18f3a56deb41bb11544d3d46f11, type: 3}
+  jetpackEndClip: {fileID: 8300000, guid: 5d07596b917ceec47a3e6416543f4eea, type: 3}
 --- !u!61 &2561603094583464991
 BoxCollider2D:
   m_ObjectHideFlags: 0
