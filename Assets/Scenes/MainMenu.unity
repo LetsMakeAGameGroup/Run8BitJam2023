@@ -945,7 +945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicClips:
-  - {fileID: 8300000, guid: 1470b3513e5b944439cfc408e96e8bb8, type: 3}
+  - {fileID: 8300000, guid: cdae81ca32cc9c643b3c389a1d4c6c63, type: 3}
   gameOverJingle: {fileID: 8300000, guid: 43c91830db38ae84bbdd59b4e9d0a785, type: 3}
 --- !u!1001 &438986046
 PrefabInstance:
