@@ -11,12 +11,18 @@ public class DangerZone : MonoBehaviour
     public float maxDistanceFromPlayer;
 
     public Transform player;
+
+    [SerializeField] private Transform particleTrans;
+    private float localX = -0.75f;
+
     private void Start()
     {
         GameMode.Instance.onGameStart += StartDangerZone;
         GameMode.Instance.onGameEnd += StopDangerZone;
 
         player = GameMode.Instance.GetPlayerController().transform;
+
+        localX = particleTrans.localPosition.x;
     }
 
     public void StartDangerZone() 
@@ -47,6 +53,12 @@ public class DangerZone : MonoBehaviour
         else 
         {
             transform.Translate(Vector3.right * DangerZoneSpeed * Time.deltaTime);
+        }
+
+        if (particleTrans.position.x > Camera.main.transform.position.x + 15f) {
+            particleTrans.position = new Vector3(Camera.main.transform.position.x + 15f, particleTrans.position.y, particleTrans.position.z);
+        } else {
+            particleTrans.localPosition = new Vector3(localX, particleTrans.localPosition.y, particleTrans.localPosition.z);
         }
     }
 
