@@ -28,9 +28,9 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] private AudioClip heatWarningClip;
     [SerializeField] private AudioClip freezeWarningClip;
+    [SerializeField] private AudioSource warningAudioSource;
 
-    private void Awake()
-    {
+    private void Awake() {
         playeranimator = GetComponentInChildren<Animator>();
         movement = GetComponentInChildren<PlayerMovement>();
     }
@@ -43,31 +43,14 @@ public class PlayerController : MonoBehaviour {
     private void Update() {
 
         // Naturally, decrease the currentTemp by tempDecrease every second. If the player is on fire, increase currentTemp by tempIncrease every second.
-        if (tempIsActive && !PauseController.Instance.isPaused)
-        {
-            if (tempTimer > 0)
-            {
+        if (tempIsActive && !PauseController.Instance.isPaused) {
+            if (tempTimer > 0) {
                 tempTimer -= Time.deltaTime;
-            }
-            else
-            {
-                if (fireTicks > 0)
-                {
-                    if (currentTemp < maxTempWarning && currentTemp + tempIncrease >= maxTempWarning) {
-                        AudioSource audio = GetComponent<AudioSource>();
-                        audio.PlayOneShot(heatWarningClip, (PlayerPrefs.HasKey("FXVolume") ? PlayerPrefs.GetFloat("FXVolume") / 100f : 0.5f));
-                    }
-
+            } else {
+                if (fireTicks > 0) {
                     if (currentTemp + tempIncrease <= 100) currentTemp += tempIncrease;
                     else currentTemp = 100;
-                }
-                else
-                {
-                    if (currentTemp > minTempWarning && currentTemp - tempIncrease <= minTempWarning) {
-                        AudioSource audio = GetComponent<AudioSource>();
-                        audio.PlayOneShot(freezeWarningClip, (PlayerPrefs.HasKey("FXVolume") ? PlayerPrefs.GetFloat("FXVolume") / 100f : 0.5f));
-                    }
-
+                } else {
                     if (currentTemp - tempDecrease >= 0) currentTemp -= tempDecrease;
                     else currentTemp = 0;
                 }
@@ -81,27 +64,31 @@ public class PlayerController : MonoBehaviour {
             currentTemp = maxTempWarning - 1;
         }
         if (currentTemp <= minTempWarning || currentTemp >= maxTempWarning) {
+            if (!warningAudioSource.isPlaying) {
+                warningAudioSource.clip = (currentTemp <= minTempWarning ? freezeWarningClip : heatWarningClip);
+                warningAudioSource.Play();
+            }
+
             isWarning = true;
             if (currentWarningTime > 0) {
                 currentWarningTime -= Time.deltaTime;
                 HUDManager.Instance.UpdateWarning(currentWarningTime);
             } else {
                 //Disable player for now
-                if (GameMode.Instance != null)
-                {
+                if (GameMode.Instance != null) {
                     GameMode.Instance.EndGame();
                 }
 
                 gameObject.SetActive(false);
             }
         } else if (isWarning) {
+            warningAudioSource.Stop();
             isWarning = false;
             currentWarningTime = warningTimer;
             HUDManager.Instance.DisableWarning();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape)) 
-        {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
             PauseController.Instance.TogglePause();
         }
 
@@ -111,20 +98,15 @@ public class PlayerController : MonoBehaviour {
 
         playeranimator.SetBool("IsGrounded", movement.IsGrounded());
 
-        if (gameStarted)
-        {
-            if (canPunchDoor)
-            {
+        if (gameStarted) {
+            if (canPunchDoor) {
                 bool punch = Input.GetButtonDown("Submit");
                 playeranimator.SetBool("Idle", true);
 
-                if (punch)
-                {
+                if (punch) {
                     playeranimator.SetTrigger("Punch");
                 }
-            }
-            else 
-            {
+            } else {
                 playeranimator.SetBool("Idle", false);
             }
         }
@@ -150,18 +132,15 @@ public class PlayerController : MonoBehaviour {
         if (fireTicks == 0) SetOffFire();
     }
 
-    public void ToggleIdleAnimation() 
-    {
+    public void ToggleIdleAnimation() {
         playeranimator.SetBool("Idle", !playeranimator.GetBool("Idle"));
 
-        if (!gameStarted)
-        {
+        if (!gameStarted) {
             gameStarted = true;
         }
     }
 
-    public void SetOnDoor(bool newOnDoor)
-    {
+    public void SetOnDoor(bool newOnDoor) {
         movement.isOnDoor = newOnDoor;
     }
 }
