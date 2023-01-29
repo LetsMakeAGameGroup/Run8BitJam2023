@@ -76,6 +76,9 @@ public class PlayerController : MonoBehaviour {
         }
 
         // If the player's temperature is out of the ideal range, warn the player they're in danger of losing. If in danger for warningTimer seconds, then the game is lost.
+        if (currentTemp >= maxTempWarning && fireTicks == 0) {
+            currentTemp = maxTempWarning - 1;
+        }
         if (currentTemp <= minTempWarning || currentTemp >= maxTempWarning) {
             isWarning = true;
             if (currentWarningTime > 0) {
