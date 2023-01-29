@@ -44,7 +44,7 @@ public class GameMode : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private DangerZone dangerZone;
 
-    public TMP_Text PressSpaceToStartText;
+    public GameObject PressSpaceToStartText;
     public TMP_Text startTimeText;
 
     [SerializeField] private AudioClip startClip;

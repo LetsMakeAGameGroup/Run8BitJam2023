@@ -15,8 +15,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private AudioClip buttonPressClip;
 
     private void Awake() {
-        if (PlayerPrefs.HasKey("SoundVolume")) {
-            soundSlider.value = PlayerPrefs.GetFloat("SoundVolume");
+        if (PlayerPrefs.HasKey("MusicVolume")) {
+            soundSlider.value = PlayerPrefs.GetFloat("MusicVolume");
         }
 
         if (PlayerPrefs.HasKey("FXVolume")) {
@@ -41,8 +41,8 @@ public class MainMenu : MonoBehaviour
         optionsMenu.SetActive(false);
     }
 
-    public void SetSoundVolume(float volume) {
-        PlayerPrefs.SetFloat("SoundVolume", volume);
+    public void SetMusicVolume(float volume) {
+        PlayerPrefs.SetFloat("MusicVolume", volume);
         MusicManager.Instance.GetComponent<AudioSource>().volume = volume / 100f;
     }
 
@@ -55,5 +55,10 @@ public class MainMenu : MonoBehaviour
         audio.clip = buttonPressClip;
         audio.volume = (PlayerPrefs.HasKey("FXVolume") ? PlayerPrefs.GetFloat("FXVolume") / 100f : 0.5f);
         audio.Play();
+    }
+
+    public void QuitGame() 
+    {
+        Application.Quit();
     }
 }

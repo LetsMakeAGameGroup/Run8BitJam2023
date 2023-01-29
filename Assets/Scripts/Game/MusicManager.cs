@@ -21,7 +21,7 @@ public class MusicManager : MonoBehaviour {
 
         audioSource = GetComponent<AudioSource>();
 
-        audioSource.volume = (PlayerPrefs.HasKey("SoundVolume") ? PlayerPrefs.GetFloat("SoundVolume") : 50f) / 100f;
+        audioSource.volume = (PlayerPrefs.HasKey("MusicVolume") ? PlayerPrefs.GetFloat("MusicVolume") : 50f) / 100f;
 
         PlayRandomSong();
     }
