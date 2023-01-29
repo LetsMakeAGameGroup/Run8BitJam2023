@@ -56,4 +56,9 @@ public class MainMenu : MonoBehaviour
         audio.volume = (PlayerPrefs.HasKey("FXVolume") ? PlayerPrefs.GetFloat("FXVolume") / 100f : 0.5f);
         audio.Play();
     }
+
+    public void QuitGame() 
+    {
+        Application.Quit();
+    }
 }
