@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour {
     public bool canPunchDoor;
     bool gameStarted;
 
-    [SerializeField] private AudioClip tempWarningClip;
+    [SerializeField] private AudioClip heatWarningClip;
+    [SerializeField] private AudioClip freezeWarningClip;
 
     private void Awake()
     {
@@ -54,7 +55,7 @@ public class PlayerController : MonoBehaviour {
                 {
                     if (currentTemp < maxTempWarning && currentTemp + tempIncrease >= maxTempWarning) {
                         AudioSource audio = GetComponent<AudioSource>();
-                        audio.PlayOneShot(tempWarningClip, (PlayerPrefs.HasKey("FXVolume") ? PlayerPrefs.GetFloat("FXVolume") / 100f : 0.5f));
+                        audio.PlayOneShot(heatWarningClip, (PlayerPrefs.HasKey("FXVolume") ? PlayerPrefs.GetFloat("FXVolume") / 100f : 0.5f));
                     }
 
                     if (currentTemp + tempIncrease <= 100) currentTemp += tempIncrease;
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour {
                 {
                     if (currentTemp > minTempWarning && currentTemp - tempIncrease <= minTempWarning) {
                         AudioSource audio = GetComponent<AudioSource>();
-                        audio.PlayOneShot(tempWarningClip, (PlayerPrefs.HasKey("FXVolume") ? PlayerPrefs.GetFloat("FXVolume") / 100f : 0.5f));
+                        audio.PlayOneShot(freezeWarningClip, (PlayerPrefs.HasKey("FXVolume") ? PlayerPrefs.GetFloat("FXVolume") / 100f : 0.5f));
                     }
 
                     if (currentTemp - tempDecrease >= 0) currentTemp -= tempDecrease;

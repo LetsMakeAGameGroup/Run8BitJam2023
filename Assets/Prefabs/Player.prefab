@@ -9686,7 +9686,8 @@ MonoBehaviour:
   minTempWarning: 25
   tempIsActive: 0
   canPunchDoor: 0
-  tempWarningClip: {fileID: 8300000, guid: 16b9f29ff1a5c874a99131117b02e7c5, type: 3}
+  heatWarningClip: {fileID: 8300000, guid: 16b9f29ff1a5c874a99131117b02e7c5, type: 3}
+  freezeWarningClip: {fileID: 8300000, guid: 1b0fefaa19f5ff948a54216132d7ed40, type: 3}
 --- !u!114 &7371057653992287490
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3868,9 +3868,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicClips:
-  - {fileID: 8300000, guid: 253f692923b28e14394e4a231e1f3df2, type: 3}
-  - {fileID: 8300000, guid: c2b414ffeeb117344b377ed71bad3fc2, type: 3}
-  - {fileID: 8300000, guid: 77a3ac93846bd254998d688208200ca9, type: 3}
+  - {fileID: 8300000, guid: 7d10b3d67b37066448d1e0a1901da823, type: 3}
+  - {fileID: 8300000, guid: 2f7a935b440ed5d42b9e43c47601cd08, type: 3}
+  - {fileID: 8300000, guid: a7812abf4490c954383eab4955ef5443, type: 3}
   gameOverJingle: {fileID: 8300000, guid: 43c91830db38ae84bbdd59b4e9d0a785, type: 3}
 --- !u!4 &1384174892
 Transform:
