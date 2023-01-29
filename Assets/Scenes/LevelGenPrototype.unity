@@ -717,7 +717,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0b8f2a1ac42839b42a30b4111e79d625, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2b001d24b501d0c4f96cf2b0bada6fd6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10106,7 +10106,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1807766540}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -10279,6 +10279,30 @@ MonoBehaviour:
     ammount: 10
   - objectKey: 14
     poolGameObjectPrefab: {fileID: 8749353518948967826, guid: f58a5b9ebdf51084d9d2570971481fcd, type: 3}
+    ammount: 10
+  - objectKey: 15
+    poolGameObjectPrefab: {fileID: 8749353518948967826, guid: 0af6f626d7bf4c644a132093d4cb59ea, type: 3}
+    ammount: 10
+  - objectKey: 16
+    poolGameObjectPrefab: {fileID: 8749353518948967826, guid: e1c160e226cc4f045b183dfd4fef3a5b, type: 3}
+    ammount: 10
+  - objectKey: 17
+    poolGameObjectPrefab: {fileID: 8749353518948967826, guid: a01d49312007e1549a457d144c7bccae, type: 3}
+    ammount: 10
+  - objectKey: 18
+    poolGameObjectPrefab: {fileID: 8749353518948967826, guid: 8d62a0708a278e645816a8c810dc752d, type: 3}
+    ammount: 10
+  - objectKey: 19
+    poolGameObjectPrefab: {fileID: 8749353518948967826, guid: 5ea07ac5d4a55fe47ac74bf2b405be0e, type: 3}
+    ammount: 10
+  - objectKey: 20
+    poolGameObjectPrefab: {fileID: 8749353518948967826, guid: a19d9801be5612941ab2933d0d19aa24, type: 3}
+    ammount: 10
+  - objectKey: 21
+    poolGameObjectPrefab: {fileID: 8749353518948967826, guid: 079e1d1bb35378c4d81bd9c1dd9a7732, type: 3}
+    ammount: 10
+  - objectKey: 22
+    poolGameObjectPrefab: {fileID: 8749353518948967826, guid: 4d0d93165a9a47d499f4e5471442a47e, type: 3}
     ammount: 10
 --- !u!4 &1870921371
 Transform:
@@ -11106,9 +11130,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7371057653992287491, guid: 05ad8cdf44b8c104b9a44d17b495ad48, type: 3}
+      propertyPath: maxTempWarning
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7371057653992287491, guid: 05ad8cdf44b8c104b9a44d17b495ad48, type: 3}
+      propertyPath: minTempWarning
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7371057653992287613, guid: 05ad8cdf44b8c104b9a44d17b495ad48, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7371057653992287613, guid: 05ad8cdf44b8c104b9a44d17b495ad48, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.53
+      value: -4.67
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05ad8cdf44b8c104b9a44d17b495ad48, type: 3}

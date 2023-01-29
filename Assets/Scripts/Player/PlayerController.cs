@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
-    [HideInInspector] public int batteries = 1;
+    [HideInInspector] public int batteries = 0;
     [HideInInspector] public int maxBatteries = 3;
 
     [SerializeField] private ParticleSystem fireParticles;
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Start() {
         maxBatteries = HUDManager.Instance.batteries.Length;
+        batteries = 0;
         currentWarningTime = warningTimer;
     }
 
