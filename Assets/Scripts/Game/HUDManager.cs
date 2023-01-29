@@ -18,6 +18,7 @@ public class HUDManager : MonoBehaviour {
 
     public GameObject PauseMenu;
     public GameObject LostMenu;
+    [SerializeField] private AudioClip buttonPressClip;
 
     //UI Stuff
     [SerializeField] TMP_Text loseTimeText;
@@ -56,6 +57,7 @@ public class HUDManager : MonoBehaviour {
 
     public void TogglePauseMenu() 
     {
+        ButtonPressAudio();
         PauseMenu.SetActive(!PauseMenu.activeInHierarchy);
     }
 
@@ -68,5 +70,12 @@ public class HUDManager : MonoBehaviour {
     {
         loseMilesText.text = miles;
         loseTimeText.text = time;
+    }
+
+    public void ButtonPressAudio() {
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.clip = buttonPressClip;
+        audio.volume = (PlayerPrefs.HasKey("FXVolume") ? PlayerPrefs.GetFloat("FXVolume") / 100f : 0.5f);
+        audio.Play();
     }
 }

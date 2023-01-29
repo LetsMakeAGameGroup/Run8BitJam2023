@@ -11,6 +11,10 @@ public class Door : MonoBehaviour {
 
     PlayerController playerPunching;
     bool destroyed;
+
+    [SerializeField] private AudioClip punchBreakDoorAudio;
+    [SerializeField] private AudioClip fireBreakDoorAudio;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -56,6 +60,10 @@ public class Door : MonoBehaviour {
         }
 
         animator.SetTrigger("BreakDoor");
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.clip = (playerPunching != null ? punchBreakDoorAudio : fireBreakDoorAudio);
+        audio.volume = (PlayerPrefs.HasKey("FXVolume") ? PlayerPrefs.GetFloat("FXVolume") / 100f : 0.5f);
+        audio.Play();
         doorCollider.isTrigger = true;
         destroyed = true;
         //StartCoroutine();

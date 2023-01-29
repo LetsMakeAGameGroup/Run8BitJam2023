@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour {
     public bool canPunchDoor;
     bool gameStarted;
 
+    [SerializeField] private AudioClip tempWarningClip;
+
     private void Awake()
     {
         playeranimator = GetComponentInChildren<Animator>();
@@ -50,11 +52,21 @@ public class PlayerController : MonoBehaviour {
             {
                 if (fireTicks > 0)
                 {
+                    if (currentTemp < maxTempWarning && currentTemp + tempIncrease >= maxTempWarning) {
+                        AudioSource audio = GetComponent<AudioSource>();
+                        audio.PlayOneShot(tempWarningClip, (PlayerPrefs.HasKey("FXVolume") ? PlayerPrefs.GetFloat("FXVolume") / 100f : 0.5f));
+                    }
+
                     if (currentTemp + tempIncrease <= 100) currentTemp += tempIncrease;
                     else currentTemp = 100;
                 }
                 else
                 {
+                    if (currentTemp > minTempWarning && currentTemp - tempIncrease <= minTempWarning) {
+                        AudioSource audio = GetComponent<AudioSource>();
+                        audio.PlayOneShot(tempWarningClip, (PlayerPrefs.HasKey("FXVolume") ? PlayerPrefs.GetFloat("FXVolume") / 100f : 0.5f));
+                    }
+
                     if (currentTemp - tempDecrease >= 0) currentTemp -= tempDecrease;
                     else currentTemp = 0;
                 }
@@ -64,6 +76,9 @@ public class PlayerController : MonoBehaviour {
         }
 
         // If the player's temperature is out of the ideal range, warn the player they're in danger of losing. If in danger for warningTimer seconds, then the game is lost.
+        if (currentTemp >= maxTempWarning && fireTicks == 0) {
+            currentTemp = maxTempWarning - 1;
+        }
         if (currentTemp <= minTempWarning || currentTemp >= maxTempWarning) {
             isWarning = true;
             if (currentWarningTime > 0) {
