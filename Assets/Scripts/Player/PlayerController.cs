@@ -110,6 +110,7 @@ public class PlayerController : MonoBehaviour {
             else 
             {
                 playeranimator.SetBool("Idle", false);
+                playeranimator.ResetTrigger("Punch");
             }
         }
     }

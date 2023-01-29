@@ -54,11 +54,11 @@ public class PlayerMovement : MonoBehaviour {
             if (currentSpeed > maxSpeedThreshold) currentSpeed = maxSpeedThreshold;
         }
 
-        if (!isOnDoor)
-        {
+        //if (!isOnDoor)
+        //{
             // Constantly move towards the right.
             rb.velocity = new Vector2(currentSpeed, rb.velocity.y);
-        }
+        //}
 
 
         // When pressing the Jump button, do a normal jump when touching the ground. While in the air, prepare to jetpack when the player has at least one battery.
