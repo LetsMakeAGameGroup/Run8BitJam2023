@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour {
             isWarning = true;
             if (currentWarningTime > 0) {
                 currentWarningTime -= Time.deltaTime;
-                HUDManager.Instance.UpdateWarning(currentWarningTime);
+                HUDManager.Instance.UpdateWarning(currentWarningTime, (currentTemp >= maxTempWarning ? true : false));
             } else {
                 //Disable player for now
                 if (GameMode.Instance != null) {

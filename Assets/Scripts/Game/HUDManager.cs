@@ -15,6 +15,8 @@ public class HUDManager : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI tempText;
     [SerializeField] private TextMeshProUGUI warningTimer;
     [SerializeField] private RectTransform tempGaugeTrans;
+    [SerializeField] private GameObject heatWarning;
+    [SerializeField] private GameObject coldWarning;
 
     public GameObject PauseMenu;
     public GameObject LostMenu;
@@ -46,13 +48,22 @@ public class HUDManager : MonoBehaviour {
         tempGaugeTrans.anchoredPosition = new Vector2(tempGaugeTrans.anchoredPosition.x, temperature * 6.8f + 200);
     }
 
-    public void UpdateWarning(float time) {
-        if (warningTimer.enabled == false) warningTimer.enabled = true;
+    public void UpdateWarning(float time, bool isHot) {
+        if (warningTimer.enabled == false) {
+            warningTimer.enabled = true;
+            if (isHot) {
+                heatWarning.SetActive(true);
+            } else {
+                coldWarning.SetActive(true);
+            }
+        }
         warningTimer.text = Mathf.Floor(time+1).ToString();
     }
 
     public void DisableWarning() {
         warningTimer.enabled = false;
+        heatWarning.SetActive(false);
+        coldWarning.SetActive(false);
     }
 
     public void TogglePauseMenu() 
