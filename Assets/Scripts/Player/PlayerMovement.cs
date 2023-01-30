@@ -156,5 +156,9 @@ public class PlayerMovement : MonoBehaviour {
         return isGrounded;
     }
 
+    public float GetVelocityX() 
+    {
+        return rb.velocity.x;
+    }
 
 }

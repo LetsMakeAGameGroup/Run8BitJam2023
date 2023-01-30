@@ -156,7 +156,10 @@ public class GameMode : MonoBehaviour
             gameTime += Time.deltaTime;
             SetTimeText(GetTimeString(gameTime));
 
-            milesCounter +=  (playerMovement.currentSpeed / playerMovement.walkingSpeed) * Time.deltaTime;
+            if (!playerMovement.isOnDoor)
+            {
+                milesCounter += (playerMovement.GetVelocityX() / playerMovement.walkingSpeed) * Time.deltaTime;
+            }
             SetMilesText(Mathf.RoundToInt(milesCounter).ToString());
         }
     }
@@ -170,9 +173,12 @@ public class GameMode : MonoBehaviour
             onGameEnd();
         }
 
+
+        HUDManager.Instance.DisableWarning();
         HUDManager.Instance.SetAfterScreenText(milesText.text, timeText.text);
         HUDManager.Instance.ToggleLostScreen();
         MusicManager.Instance.GameOverMusic();
+
 
         //Bring up Losing Screen
     }
